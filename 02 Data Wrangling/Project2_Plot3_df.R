@@ -3,19 +3,17 @@ require(tidyr)
 require(dplyr)
 require(ggplot2)
 
+Plot3_df <- df %>% select(HHI, KIDSLT6, KIDS618, WHRSWK) %>% filter(HHI == "no") %>% mutate(TOTAL_KIDS = KIDSLT6 + KIDS618)
 
-Plot3_df <- df %>% mutate(TOTAL_KIDS = KIDSLT6 + KIDS618) %>% mutate(HUSBY_PERCENT = cume_dist(HUSBY)) %>% filter(HUSBY_PERCENT <= .2 | HUSBY_PERCENT >= .8)
-
-# plot of how education and husbands income influences number of kids
+# plot of how number of kids and no health insurance from husband affects hours worked by wives
 ggplot() +
   coord_cartesian() + 
   scale_x_continuous() +
   scale_y_continuous() +
-  #facet_grid(.~EDUCATION, labeller=label_both) + 
-  labs(title='Comparision of top 20 and bottom 20 husband incomes on number of kids') +
-  labs(x="Husband Income", y=paste("Number of Kids")) +
+  labs(title='Influence of number of kids and no health insurance from husband on hours worked by wives') +
+  labs(x="Hours Worked per week by wife", y=paste("Number of Kids")) +
   layer(data=Plot3_df, 
-        mapping=aes(x=as.numeric(HUSBY), y=as.numeric(TOTAL_KIDS), color=as.character(REGION)), 
+        mapping=aes(x=as.numeric(WHRSWK), y=as.numeric(TOTAL_KIDS)), 
         stat="identity", 
         stat_params=list(), 
         geom="point",

@@ -13,7 +13,7 @@ ggplot() +
   scale_y_continuous() +
   #facet_grid(.~EDUCATION, labeller=label_both) + 
   labs(title='Comparision of top 20 and bottom 20 husband incomes on years of wifes potential work experience in different region') +
-  labs(x="Husband Income", y=paste("Years of wifes potential work experience")) +
+  labs(x="Husband Income", y=paste("Husbands Work Experience")) +
   layer(data=Plot3_df, 
         mapping=aes(x=as.numeric(HUSBY), y=as.numeric(EXPERIENCE), color=as.character(REGION)), 
         stat="identity", 

@@ -12,7 +12,7 @@ ggplot() +
   scale_x_continuous() +
   scale_y_continuous() +
   facet_grid(.~EDUCATION, labeller=label_both) + 
-  labs(title='How Education level and Income influences number of children') +
+  labs(title='Influence of Education Level and Husbands Income on Number of Children') +
   labs(x="Number of Kids", y=paste("Husbands Income(thousands of dollars)")) +
   layer(data=Plot1_df, 
         mapping=aes(x=as.numeric(mean_kids), y=as.numeric(as.character(HUSBY))), 
