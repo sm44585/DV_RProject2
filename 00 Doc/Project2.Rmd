@@ -1,22 +1,48 @@
 ---
 title: "Project2"
 author: "Spencer Muncey and Chenchao Zang"
-date: "September 30, 2015"
+date: "October 2, 2015"
 output: html_document
 ---
+# Health Insurance and Hours Worked By Wives
+This data set was referenced in a September 1998 article written by Craig Olson in the *Journal of Applied Econometrics*. The data was used to determine the validity of the hypothesis that wifes who don't have health insurance through their husbands employer are more likely to work full time to get health insurance than wifes who are covered by their husbands health insurance. 
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Here is the article in its entirety if you would like to read it: [1998 Olson Journal of Applied Econometrics](./Olson-1998-Journal_of_Applied_Econometrics.pdf)
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
+## The data set 
+The data set is from the March 1993 US Current Population Survey. Here is a summary of that data set:
 ```{r}
-summary(cars)
+require("jsonlite")
+require("RCurl")
+# Change the USER and PASS below to be your UTEid
+df <- data.frame(fromJSON(getURL(URLencode('129.152.144.84:5001/rest/native/?query="select * from hi"'),httpheader=c(DB='jdbc:oracle:thin:@129.152.144.84:1521/PDBF15DV.usuniversi01134.oraclecloud.internal', USER='cs329e_cz4795', PASS='orcl_cz4795', MODE='native_mode', MODEL='model', returnDimensions = 'False', returnFor = 'JSON'), verbose = TRUE), ))
+summary(df)
 ```
 
-You can also embed plots, for example:
 
-```{r, echo=FALSE}
-plot(cars)
+Here is the first ten rows of that data set:
+```{r tidy=TRUE}
+head(df)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+A detailed explanation of each column in the data set:  
+
+* HHI - Is the wife covered by the husbands health insurance? "yes", "no"
+* WHI - Does the wife have health insurnace through her job? "yes", "no"
+* HHI2 - Does the husband has health insurance through his own job? "yes", "no"
+* education - Education level of the wife, "<9years", "9-11years", "12years", "13-15years", "16years", ">16years"
+* race - Race of wife: "white", "black", "other"
+* hispanic - Is the wife hispanic? "yes", "no"
+* region - Region where wife and husband live: "other", "northcentral", "south", "west"
+* experience - Years of wifes potential work experience
+* kidslt6 - Number of kids under age of 6
+* kids618 - Number of kids 6–18 years old
+* husby - Husband's income in thousands of dollars
+
+### Plot 1: 
+
+
+### Plot 2:
+
+
+### Plot 3: 
