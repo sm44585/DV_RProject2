@@ -35,15 +35,41 @@ A detailed explanation of each column in the data set:
 * race - Race of wife: "white", "black", "other"
 * hispanic - Is the wife hispanic? "yes", "no"
 * region - Region where wife and husband live: "other", "northcentral", "south", "west"
-* experience - Years of wifes potential work experience
+* experience - Years of husbands potential work experience
 * kidslt6 - Number of kids under age of 6
 * kids618 - Number of kids 6–18 years old
 * husby - Husband's income in thousands of dollars
 
+## Session Info
+This is how my Rstudio is set up in order to execute the experiment and produce these results:
+```{r}
+sessionInfo()
+```
+
 ### Plot 1: 
+``` {r}
+source("../02 Data Wrangling/Project2_Plot1_df.r", echo = TRUE)
+```
 
-
+Data Wrangling R Workflow to produce the dataframe that powers this plot: 
+```
+Plot1_df <- df %>% group_by (EDUCATION, HUSBY) %>% summarise(mean_kids = mean(KIDSLT6 + KIDS618))
+```
 ### Plot 2:
+``` {r}
+source("../02 Data Wrangling/Project2_Plot2_df.r", echo = TRUE)
+```
 
-
+Data Wrangling R Workflow to produce the dataframe that powers this plot: 
+```
+Plot2_df <- df %>% mutate(EXPERIENCE_PERCENT = cume_dist(EXPERIENCE)) %>% filter(EXPERIENCE_PERCENT  <= .1 | EXPERIENCE_PERCENT  >= .9)
+```
 ### Plot 3: 
+``` {r}
+source("../02 Data Wrangling/Project2_Plot3_df.r", echo = TRUE)
+```
+
+Data Wrangling R Workflow to produce the dataframe that powers this plot: 
+```
+Plot3_df <- df %>% select(HHI, KIDSLT6, KIDS618, WHRSWK) %>% filter(HHI == "no") %>% mutate(TOTAL_KIDS = KIDSLT6 + KIDS618)
+```
