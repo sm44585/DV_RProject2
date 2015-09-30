@@ -27,6 +27,7 @@ head(df)
 
 A detailed explanation of each column in the data set:  
 
+* WHRSWK - Hours worked per week by wife
 * HHI - Is the wife covered by the husbands health insurance? "yes", "no"
 * WHI - Does the wife have health insurnace through her job? "yes", "no"
 * HHI2 - Does the husband has health insurance through his own job? "yes", "no"
