@@ -11,10 +11,10 @@ ggplot() +
   coord_cartesian() + 
   scale_x_continuous() +
   scale_y_continuous() +
-  labs(title='Top 20 & bottom 20 percent of husbands work experience') +
+  labs(title='Top 10 & bottom 10 percent of husbands work experience') +
   labs(x="Work Experience", y=paste("Husband Income")) +
   layer(data=Plot2_df, 
-        mapping=aes(x=as.numeric(EXPERIENCE), y=as.numeric(HUSBY), color=as.character(HHI2)), 
+        mapping=aes(x=as.numeric(EXPERIENCE), y=as.numeric(HUSBY), color=as.character(HHI)), 
         stat="identity", 
         stat_params=list(), 
         geom="point",

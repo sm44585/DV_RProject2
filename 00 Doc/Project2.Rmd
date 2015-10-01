@@ -46,7 +46,8 @@ This is how my Rstudio is set up in order to execute the experiment and produce 
 sessionInfo()
 ```
 
-### Plot 1: 
+### Plot 1: Influence of Education Level and Husbands Income on Number of Children
+This plot looks at the relationship between hansbands income and number of kids based on the educaion level of wife.
 ``` {r}
 source("../02 Data Wrangling/Project2_Plot1_df.r", echo = TRUE)
 ```
@@ -55,7 +56,8 @@ Data Wrangling R Workflow to produce the dataframe that powers this plot:
 ```
 Plot1_df <- df %>% group_by (EDUCATION, HUSBY) %>% summarise(mean_kids = mean(KIDSLT6 + KIDS618))
 ```
-### Plot 2:
+### Plot 2:Influence of Husband work experience and Husbands Income on wife insurance covered type at top 10 & bottom 10 percent of husbands work experience
+This plot looks at the relationship between hansbands income and the Years of husbands potential work experience based on the wife covered by the husbands health insurance.
 ``` {r}
 source("../02 Data Wrangling/Project2_Plot2_df.r", echo = TRUE)
 ```
@@ -64,7 +66,8 @@ Data Wrangling R Workflow to produce the dataframe that powers this plot:
 ```
 Plot2_df <- df %>% mutate(EXPERIENCE_PERCENT = cume_dist(EXPERIENCE)) %>% filter(EXPERIENCE_PERCENT  <= .1 | EXPERIENCE_PERCENT  >= .9)
 ```
-### Plot 3: 
+### Plot 3: Influence of number of kids and no health insurance from husband on hours worked by wives
+This plot looks at the relationship between hours worked by wives and number of kids selecting the wife without the insurance from husbands.
 ``` {r}
 source("../02 Data Wrangling/Project2_Plot3_df.r", echo = TRUE)
 ```
