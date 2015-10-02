@@ -10,14 +10,14 @@ ggplot() +
   coord_cartesian() + 
   scale_x_continuous() +
   scale_y_continuous() +
-  labs(title='Influence of number of kids and no health insurance from husband on hours worked by wives') +
-  labs(x="Hours Worked per week by wife", y=paste("Number of Kids")) +
+  facet_grid(.~TOTAL_KIDS, labeller = label_both) +
+  labs(title='Effect of Number of Kids and No Insurance from Husband on Hours Worked by Wives') +
+  labs(x="Hours Worked per Week by Wife", y=paste("Number of Kids")) +
   layer(data=Plot3_df, 
         mapping=aes(x=as.numeric(WHRSWK), y=as.numeric(TOTAL_KIDS)), 
         stat="identity", 
         stat_params=list(), 
         geom="point",
         geom_params=list(), 
-        #position=position_identity()
         position=position_jitter(width=0.3, height=0)
   )
