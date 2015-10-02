@@ -5,7 +5,7 @@ date: "October 2, 2015"
 output: html_document
 ---
 # Health Insurance and Hours Worked By Wives
-This data set was referenced in a September 1998 article written by Craig Olson in the *Journal of Applied Econometrics*. The data was used to determine the validity of the hypothesis that wifes who don't have health insurance through their husbands employer are more likely to work full time to get health insurance than wifes who are covered by their husbands health insurance. 
+This data set was referenced in a September 1998 article written by Craig Olson in the *Journal of Applied Econometrics*. The data was used to determine the validity of the hypothesis that wives who do not have health insurance through their husband's employer are more likely to work full-time to get health insurance than wives who are covered by their husband's health insurance. 
 
 Here is the article in its entirety if you would like to read it: [1998 Olson Journal of Applied Econometrics](./Olson-1998-Journal_of_Applied_Econometrics.pdf)
 
@@ -28,12 +28,12 @@ head(df)
 A detailed explanation of each column in the data set:  
 
 * WHRSWK - Hours worked per week by wife
-* HHI - Is the wife covered by the husbands health insurance? "yes", "no"
+* HHI - Is the wife covered by the husband's health insurance? "yes", "no"
 * WHI - Does the wife have health insurnace through her job? "yes", "no"
 * HHI2 - Does the husband has health insurance through his own job? "yes", "no"
 * education - Education level of the wife, "<9years", "9-11years", "12years", "13-15years", "16years", ">16years"
 * race - Race of wife: "white", "black", "other"
-* hispanic - Is the wife hispanic? "yes", "no"
+* hispanic - Is the wife Hispanic? "yes", "no"
 * region - Region where wife and husband live: "other", "northcentral", "south", "west"
 * experience - Years of husbands potential work experience
 * kidslt6 - Number of kids under age of 6
@@ -41,36 +41,48 @@ A detailed explanation of each column in the data set:
 * husby - Husband's income in thousands of dollars
 
 ## Session Info
-This is how my Rstudio is set up in order to execute the experiment and produce these results:
+This is how Rstudio is set up in order to execute the experiment and produce these results:
 ```{r}
 sessionInfo()
 ```
 
-### Plot 1: Influence of Education Level and Husbands Income on Number of Children
-This plot looks at the relationship between hansbands income and number of kids based on the educaion level of wife.
-``` {r}
+### Plot 1: Average Number of Children per Wife's Education Level and Husband's Income
+
+``` {r fig.width=12, fig.height=9}
 source("../02 Data Wrangling/Project2_Plot1_df.r", echo = TRUE)
 ```
+
+This plot was originally created to verify the hypothesis that there is an inverse relationship between the husband's income and average children as well as an inverse relationship between the wife's education level and the average number of children. In other words, the more educated a woman is, and the higher the husband's income, the less children they have on average.
+
+However, after adding a box plot layer showing the mean and outlier income level of the husband for each education level of the wife, the data reveals an interesting phenomenon; the higher the wife's education level is, the higher the husband's income is. This suggests that the more educated a woman is, the higher her spouse's income is.
 
 Data Wrangling R Workflow to produce the dataframe that powers this plot: 
 ```
 Plot1_df <- df %>% group_by (EDUCATION, HUSBY) %>% summarise(mean_kids = mean(KIDSLT6 + KIDS618))
 ```
-### Plot 2:Influence of Husband work experience and Husbands Income on wife insurance covered type at top 10 & bottom 10 percent of husbands work experience
-This plot looks at the relationship between hansbands income and the Years of husbands potential work experience based on the wife covered by the husbands health insurance.
-``` {r}
+### Plot 2: Top and Bottom 10 Percent of Husband's Work Experience
+
+``` {r fig.width = 9, fid.height = 9}
 source("../02 Data Wrangling/Project2_Plot2_df.r", echo = TRUE)
 ```
+
+This plot looks at how likely the husband is to have health insurance based on how much work experience he has and his income level.
+
+This plot is interesting because it suggests that a husband's likelihood of having heath insurance is influenced more by his work experience than his income. The husbands in the top 10 percent of work experience are almost 6 times as likely to have health insurance than are the husbands who are in the bottom 10 percent of work experience.
 
 Data Wrangling R Workflow to produce the dataframe that powers this plot: 
 ```
 Plot2_df <- df %>% mutate(EXPERIENCE_PERCENT = cume_dist(EXPERIENCE)) %>% filter(EXPERIENCE_PERCENT  <= .1 | EXPERIENCE_PERCENT  >= .9)
 ```
-### Plot 3: Influence of number of kids and no health insurance from husband on hours worked by wives
-This plot looks at the relationship between hours worked by wives and number of kids selecting the wife without the insurance from husbands.
-``` {r}
+### Plot 3: Influence of Number of Kids and No Health Insurance from Husband on Hours Worked by Wives
+
+``` {r fig.width = 15, fid.height = 9}
 source("../02 Data Wrangling/Project2_Plot3_df.r", echo = TRUE)
 ```
+
+This plot is generated by a subset of the data where the husbands do not have health insurance through their employer. From that subset, this plot looks at how the number of kids affects the hours worked per week by the wife. 
+
+Overall, the trend shown in the plot provides support for the hypothesis that even when a husband does not have health insurance, the wife will ultimately work less hours per week as she has more children.
 
 Data Wrangling R Workflow to produce the dataframe that powers this plot: 
 ```
